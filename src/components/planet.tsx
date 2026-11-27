@@ -27,8 +27,8 @@ type PlanetProps = {
   id: Exclude<PlanetId, 'earth'>
   size: number
   color: string
-  selected: boolean
-  onSelect: () => void
+  selected?: boolean
+  onSelect?: () => void
 }
 
 export function Planet({ id, size, color, selected, onSelect }: PlanetProps) {
@@ -42,6 +42,7 @@ export function Planet({ id, size, color, selected, onSelect }: PlanetProps) {
   })
 
   const selectPlanet = (event: ThreeEvent<MouseEvent>) => {
+    if (!onSelect) return
     event.stopPropagation()
     onSelect()
   }
@@ -61,18 +62,29 @@ export function Planet({ id, size, color, selected, onSelect }: PlanetProps) {
       <Sphere
         ref={meshRef}
         args={[size, 40, 40]}
-        onClick={selectPlanet}
-        onPointerOver={() => {
-          document.body.style.cursor = 'pointer'
-        }}
-        onPointerOut={() => {
-          document.body.style.cursor = 'auto'
-        }}
+        onClick={onSelect ? selectPlanet : undefined}
+        onPointerOver={
+          onSelect
+            ? () => {
+                document.body.style.cursor = 'pointer'
+              }
+            : undefined
+        }
+        onPointerOut={
+          onSelect
+            ? () => {
+                document.body.style.cursor = 'auto'
+              }
+            : undefined
+        }
       >
         <meshStandardMaterial map={texture} roughness={0.9} />
       </Sphere>
       {id === 'saturn' && (
-        <mesh rotation={[Math.PI / 2.5, 0, 0]} onClick={selectPlanet}>
+        <mesh
+          rotation={[Math.PI / 2.5, 0, 0]}
+          onClick={onSelect ? selectPlanet : undefined}
+        >
           <ringGeometry args={[size * 1.25, size * 1.85, 64]} />
           <meshStandardMaterial
             color="#d7be8f"

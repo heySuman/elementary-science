@@ -1,284 +1,198 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ArrowDown, ArrowRight, Atom, Sparkles } from 'lucide-react'
+import { ArrowRight, Rocket, Sparkles, Star } from 'lucide-react'
+
+import { planets } from '../components/planet-data'
 
 export const Route = createFileRoute('/')({ component: Home })
 
-const elements = [
-  {
-    number: 1,
-    symbol: 'H',
-    name: 'Hydrogen',
-    column: 1,
-    row: 1,
-    color: 'mint',
-  },
-  {
-    number: 2,
-    symbol: 'He',
-    name: 'Helium',
-    column: 18,
-    row: 1,
-    color: 'peach',
-  },
-  {
-    number: 3,
-    symbol: 'Li',
-    name: 'Lithium',
-    column: 1,
-    row: 2,
-    color: 'peach',
-  },
-  {
-    number: 4,
-    symbol: 'Be',
-    name: 'Beryllium',
-    column: 2,
-    row: 2,
-    color: 'peach',
-  },
-  {
-    number: 5,
-    symbol: 'B',
-    name: 'Boron',
-    column: 13,
-    row: 2,
-    color: 'yellow',
-  },
-  { number: 6, symbol: 'C', name: 'Carbon', column: 14, row: 2, color: 'mint' },
-  {
-    number: 7,
-    symbol: 'N',
-    name: 'Nitrogen',
-    column: 15,
-    row: 2,
-    color: 'mint',
-  },
-  { number: 8, symbol: 'O', name: 'Oxygen', column: 16, row: 2, color: 'mint' },
-  {
-    number: 9,
-    symbol: 'F',
-    name: 'Fluorine',
-    column: 17,
-    row: 2,
-    color: 'mint',
-  },
-  {
-    number: 10,
-    symbol: 'Ne',
-    name: 'Neon',
-    column: 18,
-    row: 2,
-    color: 'peach',
-  },
-  {
-    number: 11,
-    symbol: 'Na',
-    name: 'Sodium',
-    column: 1,
-    row: 3,
-    color: 'peach',
-  },
-  {
-    number: 12,
-    symbol: 'Mg',
-    name: 'Magnesium',
-    column: 2,
-    row: 3,
-    color: 'peach',
-  },
-  {
-    number: 13,
-    symbol: 'Al',
-    name: 'Aluminum',
-    column: 13,
-    row: 3,
-    color: 'yellow',
-  },
-  {
-    number: 14,
-    symbol: 'Si',
-    name: 'Silicon',
-    column: 14,
-    row: 3,
-    color: 'yellow',
-  },
-  {
-    number: 15,
-    symbol: 'P',
-    name: 'Phosphorus',
-    column: 15,
-    row: 3,
-    color: 'mint',
-  },
-  {
-    number: 16,
-    symbol: 'S',
-    name: 'Sulfur',
-    column: 16,
-    row: 3,
-    color: 'mint',
-  },
-  {
-    number: 17,
-    symbol: 'Cl',
-    name: 'Chlorine',
-    column: 17,
-    row: 3,
-    color: 'mint',
-  },
-  {
-    number: 18,
-    symbol: 'Ar',
-    name: 'Argon',
-    column: 18,
-    row: 3,
-    color: 'peach',
-  },
-]
+const planetHighlights = {
+  mercury: 'The speedy little planet',
+  venus: 'The super-hot neighbor',
+  earth: 'Our cozy blue home',
+  mars: 'The dusty red planet',
+  jupiter: 'The giant with a big storm',
+  saturn: 'The planet with icy rings',
+  uranus: 'The planet that spins sideways',
+  neptune: 'The windy blue giant',
+}
 
 function Home() {
   return (
-    <main className="wonder-page">
-      <header className="wonder-nav page-wrap">
-        <a
-          className="wonder-brand"
-          href="#top"
-          aria-label="Little Big Science home"
-        >
-          <span className="brand-mark">
-            <Atom size={21} strokeWidth={2.2} />
-          </span>
-          <span>
-            little big <strong>science</strong>
-          </span>
-        </a>
-        <nav aria-label="Main navigation">
-          <a className="wonder-nav-link" href="#discover">
-            Discover
-          </a>
-          <a className="wonder-nav-link" href="#elements">
-            Elements
-          </a>
-          <Link className="wonder-nav-cta" to="/planetary-system">
-            Let’s explore <ArrowRight size={15} />
+    <div className="home-page" id="top">
+      <header className="home-header">
+        <div className="home-header-inner">
+          <Link className="home-brand" to="/" aria-label="AstroKids home">
+            <span className="home-brand-mark" aria-hidden="true">
+              <Rocket size={21} strokeWidth={2.2} />
+            </span>
+            <span>AstroKids</span>
           </Link>
-        </nav>
+
+          <nav className="home-nav" aria-label="Main navigation">
+            <a className="home-nav-link" href="#top" aria-current="page">
+              Home
+            </a>
+            <a className="home-nav-link" href="#planets">
+              Meet the planets
+            </a>
+            <Link
+              className="home-nav-cta"
+              to="/planetary-system"
+              search={{ planet: 'earth' }}
+            >
+              Explore space <ArrowRight size={17} />
+            </Link>
+          </nav>
+        </div>
       </header>
 
-      <section className="wonder-hero page-wrap" id="top">
-        <div className="hero-copy">
-          <div className="hero-eyebrow">
-            <Sparkles size={15} /> BIG QUESTIONS START HERE
-          </div>
-          <h1 className="display-title">
-            The world is full of <span>wow.</span>
-          </h1>
-          <p>
-            From teeny-tiny atoms to giant, faraway planets, let’s explore the
-            amazing things that make up our universe.
-          </p>
-          <div className="hero-actions">
-            <Link className="primary-button" to="/planetary-system">
-              Start exploring <ArrowRight size={17} />
-            </Link>
-            <a className="text-button" href="#discover">
-              See what’s inside <ArrowDown size={16} />
-            </a>
-          </div>
-          <div className="hero-note">
-            <span className="note-sparkle">✳</span>
-            Made for curious minds, big and small
-          </div>
-        </div>
+      <main className="home-main">
+        <section className="home-dashboard" aria-labelledby="welcome-heading">
+          <div className="home-welcome-card">
+            <div className="home-welcome-copy">
+              <div className="home-eyebrow">
+                <Sparkles size={16} aria-hidden="true" />
+                YOUR SPACE ADVENTURE STARTS HERE
+              </div>
+              <h1 id="welcome-heading">
+                Hey, Space Explorer!
+                <span>Let’s meet our neighbors.</span>
+              </h1>
+              <p>
+                Zoom around the Sun, meet all eight planets, and find out what
+                makes each one amazing.
+              </p>
+              <Link
+                className="home-primary-button"
+                to="/planetary-system"
+                search={{ planet: 'earth' }}
+              >
+                Explore the planets <ArrowRight size={18} />
+              </Link>
+            </div>
 
-        <div className="hero-art" aria-label="Explore planets and elements">
-          <div className="orbit-doodle orbit-doodle-one" aria-hidden="true">
-            ✦
-          </div>
-          <div className="orbit-doodle orbit-doodle-two" aria-hidden="true">
-            ✳
-          </div>
-          <div className="orbit-card" id="discover">
-            <div className="orbit-card-heading">
-              <span className="card-icon planet-icon">✦</span>
-              <span>
-                <span className="card-eyebrow">OUR NEIGHBORHOOD</span>
-                <strong>The solar system</strong>
+            <div
+              className="home-solar-art"
+              role="img"
+              aria-label="A cheerful illustration of the Sun and orbiting planets"
+            >
+              <span className="home-art-star home-art-star-one">✦</span>
+              <span className="home-art-star home-art-star-two">✧</span>
+              <span className="home-art-star home-art-star-three">✦</span>
+              <span className="home-solar-orbit home-solar-orbit-one" />
+              <span className="home-solar-orbit home-solar-orbit-two" />
+              <span className="home-solar-orbit home-solar-orbit-three" />
+              <span className="home-sun">
+                <span>HI!</span>
               </span>
-              <span className="card-arrow">
-                <ArrowRight size={16} />
+              <span className="home-art-planet home-art-mercury" />
+              <span className="home-art-planet home-art-venus" />
+              <span className="home-art-planet home-art-earth" />
+              <span className="home-art-planet home-art-mars" />
+              <span className="home-art-planet home-art-jupiter" />
+              <span className="home-art-planet home-art-saturn" />
+              <span className="home-art-planet home-art-uranus" />
+              <span className="home-art-planet home-art-neptune" />
+              <span className="home-art-caption">
+                8 planets, one sunny star!
               </span>
+            </div>
+          </div>
+
+          <aside className="home-side-cards" aria-label="Space activities">
+            <article className="home-mission-card">
+              <div className="home-card-badge">
+                <Star size={15} fill="currentColor" aria-hidden="true" />
+                YOUR NEXT MISSION
+              </div>
+              <h2>Find the Red Planet</h2>
+              <p>
+                Can you spot Mars? It has a giant volcano taller than Mount
+                Everest!
+              </p>
+              <Link
+                className="home-mission-button"
+                to="/planetary-system"
+                search={{ planet: 'mars' }}
+              >
+                Visit Mars <ArrowRight size={17} />
+              </Link>
+            </article>
+
+            <article className="home-wonder-card">
+              <div className="home-wonder-icon" aria-hidden="true">
+                ✨
+              </div>
+              <div>
+                <span className="home-wonder-label">A SPACE WONDER</span>
+                <h2>Venus takes its time!</h2>
+                <p>A day on Venus lasts longer than its whole year.</p>
+              </div>
+              <Link
+                className="home-wonder-link"
+                to="/planetary-system"
+                search={{ planet: 'venus' }}
+                aria-label="Explore Venus"
+              >
+                <ArrowRight size={18} />
+              </Link>
+            </article>
+          </aside>
+        </section>
+
+        <section className="home-planets-section" id="planets">
+          <div className="home-section-heading">
+            <div>
+              <span className="home-eyebrow">
+                <Sparkles size={15} aria-hidden="true" />
+                PICK YOUR FIRST STOP
+              </span>
+              <h2>Meet the 8 planets</h2>
+              <p>Choose a planet to visit and discover a fun fact about it.</p>
             </div>
             <Link
+              className="home-all-planets-link"
               to="/planetary-system"
-              className="solar-scene"
-              aria-label="Explore the solar system"
+              search={{ planet: 'earth' }}
             >
-              <span className="orbit-ring orbit-ring-one" />
-              <span className="orbit-ring orbit-ring-two" />
-              <span className="orbit-ring orbit-ring-three" />
-              <span className="orbit-sun" />
-              <span className="orbit-planet orbit-earth" />
-              <span className="orbit-planet orbit-mars" />
-              <span className="orbit-planet orbit-saturn">
-                <i />
-              </span>
-              <span className="solar-label label-sun">SUN</span>
-              <span className="solar-label label-earth">EARTH</span>
-              <span className="solar-label label-saturn">SATURN</span>
-              <span className="solar-star star-a">✦</span>
-              <span className="solar-star star-b">·</span>
-              <span className="solar-star star-c">✧</span>
+              See the whole solar system <ArrowRight size={17} />
             </Link>
-            <div className="orbit-card-footer">
-              <span>8 planets. 1 very big sun.</span>
-              <span className="mini-pill">SPACE</span>
-            </div>
           </div>
 
-          <a className="elements-card" href="#elements" id="elements">
-            <div className="elements-card-heading">
-              <span className="card-icon atom-icon">
-                <Atom size={20} />
-              </span>
-              <span>
-                <span className="card-eyebrow">THE BUILDING BLOCKS</span>
-                <strong>Meet the elements</strong>
-              </span>
-              <span className="card-arrow">
-                <ArrowRight size={16} />
-              </span>
-            </div>
-            <div
-              className="mini-periodic-table"
-              aria-label="Preview of the first 18 elements"
-            >
-              {elements.map((element) => (
+          <div className="home-planet-grid">
+            {planets.map((planet) => (
+              <Link
+                className={`home-planet-card home-planet-card-${planet.id}`}
+                key={planet.id}
+                to="/planetary-system"
+                search={{ planet: planet.id }}
+                aria-label={`Explore ${planet.name}: ${planetHighlights[planet.id]}`}
+              >
+                <span className="home-planet-order">PLANET {planet.order}</span>
                 <span
-                  className={`element-tile tile-${element.color}`}
-                  key={element.symbol}
-                  style={{ gridColumn: element.column, gridRow: element.row }}
-                  title={`${element.number}. ${element.name}`}
-                >
-                  <small>{element.number}</small>
-                  <strong>{element.symbol}</strong>
+                  className={`home-planet-orb home-planet-orb-${planet.id}`}
+                  aria-hidden="true"
+                />
+                <span className="home-planet-name">{planet.name}</span>
+                <span className="home-planet-highlight">
+                  {planetHighlights[planet.id]}
                 </span>
-              ))}
-            </div>
-            <div className="elements-card-footer">
-              <span>Everything is made of something!</span>
-              <span className="mini-pill mini-pill-peach">MATTER</span>
-            </div>
-          </a>
-        </div>
-      </section>
+                <span className="home-planet-link">
+                  Let’s go <ArrowRight size={15} aria-hidden="true" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
 
-      <footer className="wonder-footer page-wrap">
+      <footer className="home-footer">
         <span>
-          <span className="footer-sun">☼</span> Keep asking “why?”
+          <Sparkles size={15} aria-hidden="true" />
+          Keep asking big questions!
         </span>
-        <span>A little science goes a long way.</span>
+        <span>Made for curious young explorers</span>
       </footer>
-    </main>
+    </div>
   )
 }
