@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 
 import { PlanetPreview } from '../components/planet-preview'
+import { PlanetQuiz } from '../components/planet-quiz'
 import { planets } from '../components/planet-data'
 import type { PlanetId } from '../components/planet-data'
 import { SolarSystem } from '../components/solar-system'
@@ -126,6 +127,9 @@ function PlanetarySystem() {
             >
               Explore planets
             </a>
+            <a href="#planet-quiz" className="planet-explorer-nav-link">
+              Take the quiz
+            </a>
           </nav>
         </div>
       </header>
@@ -236,6 +240,8 @@ function PlanetarySystem() {
             </Link>
           </div>
         </section>
+
+        <PlanetQuiz planetId={selectedPlanet.id} />
 
         <details className="planet-system-details">
           <summary>
